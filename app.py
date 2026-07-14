@@ -31,7 +31,7 @@ def load_accounts(server_name):
         elif server_name in {"BR", "US", "SAC", "NA"}:
             filename = "account.br.txt"
         else:
-            filename = "account.bd.txt"
+            filename = "account.ME.txt"
         
         accounts = []
         if os.path.exists(filename):
@@ -54,7 +54,7 @@ def save_tokens(server_name, tokens):
         elif server_name in {"BR", "US", "SAC", "NA"}:
             filename = "token_br.json"
         else:
-            filename = "token_bd.json"
+            filename = "token_ME.json"
         
         with open(filename, "w") as f:
             json.dump(tokens, f, indent=2)
@@ -136,7 +136,7 @@ def load_tokens(server_name):
         elif server_name in {"BR", "US", "SAC", "NA"}:
             filename = "token_br.json"
         else:
-            filename = "token_bd.json"
+            filename = "token_ME.json"
         
         if os.path.exists(filename):
             with open(filename, "r") as f:
@@ -160,7 +160,7 @@ def auto_refresh_tokens():
     """Background thread to automatically refresh tokens"""
     while True:
         try:
-            servers = ["IND", "BR", "US", "SAC", "NA", "BD"]
+            servers = ["IND", "BR", "US", "SAC", "NA", "ME"]
             for server in servers:
                 app.logger.info(f"Auto-refreshing tokens for {server}...")
                 refresh_tokens_for_server(server)
@@ -387,7 +387,7 @@ def refresh_tokens_endpoint():
 @app.route('/token_status', methods=['GET'])
 def token_status():
     """Check token status for all servers"""
-    servers = ["IND", "BR", "US", "SAC", "NA", "BD"]
+    servers = ["IND", "BR", "US", "SAC", "NA", "ME"]
     status = {}
     for server in servers:
         tokens = load_tokens(server)
